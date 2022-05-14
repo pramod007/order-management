@@ -1,0 +1,39 @@
+<form [formGroup]="form">
+    <div class="mb-3">
+      <label for="recipient-name" class="col-form-label">Order Number</label>
+      <input [ngClass]="{'input-error':  form?.get('orderNo').dirty && form?.get('orderNo').invalid }" 
+      formControlName="orderNo" type="number" class="form-control" >
+    </div>
+    <div class="mb-3">
+      <label for="recipient-name" class="col-form-label">Order Due Date</label>
+      <input [ngClass]="{'input-error':  form?.get('orderDueDate').dirty && form?.get('orderDueDate').invalid }" 
+      formControlName="orderDueDate"  type="date" class="form-control" >
+    </div>
+    <div class="mb-3">
+      <label for="recipient-name" class="col-form-label">Customer Name</label>
+      <input [ngClass]="{'input-error':  form?.get('customerName').dirty && form?.get('customerName').invalid }" 
+      formControlName="customerName"  type="text" class="form-control" >
+    </div>
+    <div class="mb-3">
+      <label for="recipient-name" class="col-form-label">Customer Address</label>
+      <input [ngClass]="{'input-error':  form?.get('customerAddress').dirty && form?.get('customerAddress').invalid }" 
+      formControlName="customerAddress"  type="text" class="form-control" >
+    </div>
+    <div class="mb-3">
+      <label for="recipient-name" class="col-form-label">Customer Phone</label>
+      <input [ngClass]="{'input-error':  form?.get('customerPhone').dirty && form?.get('customerPhone').invalid }" 
+      formControlName="customerPhone"  type="number" class="form-control" >
+    </div>
+    <div class="mb-3">
+        <label for="recipient-name" class="col-form-label">Total Order</label>
+        <input [ngClass]="{'input-error':  form?.get('totalOrder').dirty && form?.get('totalOrder').invalid }" 
+        formControlName="totalOrder"  type="number" class="form-control" >
+      </div>
+  </form>
+
+  <div class="modal-footer">
+    <button (click)="closeModel()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+    <button (click)="update()" [disabled]="form.invalid" *ngIf="formData" type="button" class="btn btn-primary">Update Order</button>
+    <button (click)="create()" [disabled]="form.invalid" *ngIf="!formData" type="button" class="btn btn-primary">Create Order</button>
+    
+  </div>

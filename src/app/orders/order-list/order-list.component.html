@@ -1,0 +1,75 @@
+
+<div class="text-end me-4 my-2">
+    <button type="button" class="btn btn-primary margin-right" data-bs-toggle="modal"
+    data-bs-target="#exampleModal" (click)="sendFormDate()">New Order</button>
+    <button type="button" class="btn btn-danger" 
+     (click)="logout()">Logout</button>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Order No.</th>
+            <th scope="col">Order Due Date</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Customer Address</th>
+            <th scope="col">Customer Phone</th>
+            <th scope="col">Total Order</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let o of mockData.data | paginate: { itemsPerPage: 4, currentPage: p };let i=index ">
+            <th scope="row">{{o?.orderNo}}</th>
+            <td>{{o?.orderDueDate}}</td>
+            <td>{{o?.customerName}}</td>
+            <td>{{o?.customerAddress}}</td>
+            <td>{{o?.customerPhone}}</td>
+            <td>{{o?.totalOrder}}</td>
+            <td>
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal" (click)="sendFormDate(o)">Edit</button>
+                <button (click)="openDeleteModel(i)" type="button" class="btn btn-danger btn-sm ms-2"
+                    data-bs-toggle="modal" data-bs-target="#staticBackdrop">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="text-end me-4">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                Are you sure you want delete this order ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button (click)="delete()" type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Model -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button (click)="cancle()" #closeModal type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" *ngIf="isRemoveComponentFromDom">
+                <app-order-form [formData]="formData" (updateData)="update($event)"
+                (newEntry)="create($event)" (cancle)="cancle()"
+                ></app-order-form>
+            </div>
+        </div>
+    </div>
+</div>
